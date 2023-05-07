@@ -1,0 +1,135 @@
+﻿<Window x:Class="tered.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:tered"
+        mc:Ignorable="d"
+        Title="tered" Height="518" Width="783">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
+        <CommandBinding Command="ApplicationCommands.Save" Executed="Save_Executed" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <Button DockPanel.Dock="Left" Command="ApplicationCommands.Open"  ToolTip="Открыть"  Height="25" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/открыть.png" Width="20" Height="20" />
+            </Button>
+            <Button DockPanel.Dock="Left" Click="PrintCommand" Name="btnPrint"  ToolTip="Распечатать" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/печать.png" Width="20" Height="20"/>
+            </Button>
+            <Button DockPanel.Dock="Left" Command="ApplicationCommands.Save"  ToolTip="Сохранить"  Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FF838383">
+                <Image Source="/сохранить.png" Width="20" Height="20"/>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button DockPanel.Dock="Left" Command="ApplicationCommands.Undo"  ToolTip="Отменить"  CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/стрелка-влево.png" Width="20" Height="20"/>
+            </Button>
+            <Button DockPanel.Dock="Left" Command="ApplicationCommands.Redo"  ToolTip="Вернуть" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/стрелка-вправо.png" Width="20" Height="20"/>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <ComboBox DockPanel.Dock="Left" Name="cmbFontFamily" Width="150" SelectionChanged="cmbFontFamily_SelectionChanged" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox DockPanel.Dock="Left" Name="cmbFontSize" Width="50" IsEditable="True" TextBoxBase.TextChanged="cmbFontSize_TextChanged" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button DockPanel.Dock="Left" Command="EditingCommands.IncreaseFontSize"  ToolTip="Увеличить шрифт"  CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/увеличить-шрифт.png" Width="20" Height="20"/>
+            </Button>
+            <Button DockPanel.Dock="Left" Command="EditingCommands.DecreaseFontSize"  ToolTip="Уменьшить шрифт"  CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/уменьшить-шрифт.png" Width="20" Height="20"/>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <ToggleButton DockPanel.Dock="Left" Command="EditingCommands.ToggleBold"  ToolTip="Жирный" CommandTarget="{Binding ElementName=RTB}" Name="btnBold" Width="25" Height="25" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/жирный.png" Width="20" Height="20"/>
+            </ToggleButton>
+            <ToggleButton DockPanel.Dock="Left" Command="EditingCommands.ToggleItalic"  ToolTip="Наклонный"  CommandTarget="{Binding ElementName=RTB}" Name="btnItalic" Width="25" Height="25" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/курсив.png" Width="20" Height="20"/>
+            </ToggleButton>
+            <ToggleButton DockPanel.Dock="Left" Command="EditingCommands.ToggleUnderline"  ToolTip="Подчеркивание" CommandTarget="{Binding ElementName=RTB}" Name="btnUnderline" Width="25" Height="25" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/подчеркивание.png" Width="20" Height="20"/>
+            </ToggleButton>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button DockPanel.Dock="Left" Click="SuperScript"  ToolTip="Верний индекс"  Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/верхний-индекс.png" Width="20" Height="20"/>
+            </Button>
+            <Button DockPanel.Dock="Left" Click="SubScript" ToolTip="Нижний индекс" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/нижний-индекс.png" Width="20" Height="20"/>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button Command="EditingCommands.IncreaseIndentation" ToolTip="Увеличить отступ" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_1">
+                <Image Source="/выступ.png" Width="20" Height="20"/>
+            </Button>
+            <Button Command="EditingCommands.DecreaseIndentation" ToolTip="Уменьшить отступ" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/отступ.png" Width="20" Height="20"/>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button Command="EditingCommands.AlignLeft" ToolTip="Выравнивание по левому краю" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/icons8-выровнять-по-левому-краю-96.png" Width="20" Height="20"></Image>
+            </Button>
+            <Button Command="EditingCommands.AlignCenter" ToolTip="Выравнивание по центру" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/icons8-выровнять-по-центру-96.png" Width="20" Height="20"></Image>
+            </Button>
+            <Button Command="EditingCommands.AlignRight" ToolTip="Выравнивание по правому краю" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/icons8-выровнять-по-правому-краю-96.png" Width="20" Height="20"></Image>
+            </Button>
+            <Button Command="EditingCommands.AlignJustify" ToolTip="Выравнивание по ширине" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/icons8-выровнять-по-обоим-краям-96.png" Width="20" Height="20"></Image>
+            </Button>
+
+            <Rectangle Width="10" Height="25" />
+
+            <Button Command="EditingCommands.ToggleBullets" ToolTip="Точечный список" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/точки-список.png" Width="20" Height="20"/>
+            </Button>
+            <Button Command="EditingCommands.ToggleNumbering" ToolTip="Нумерованный список" CommandTarget="{Binding ElementName=RTB}" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Image Source="/нумерованный-список.png" Width="20" Height="20"/>
+            </Button>
+
+        </DockPanel>
+        <RichTextBox Name="RTB" SpellCheck.IsEnabled="True" AcceptsTab="True" SelectionChanged="RTB_SelectionChanged" TextChanged="RTB_TextChanged" Margin="0,25,0,0">
+            <RichTextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="Cut">
+                        <MenuItem.Icon>
+                            <Image Source="/icons8-вырезать-96.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Command="Copy">
+                        <MenuItem.Icon>
+                            <Image Source="/icons8-скопировать-96.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Command="Paste">
+                        <MenuItem.Icon>
+                            <Image Source="/icons8-вставить-96.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </RichTextBox.ContextMenu>
+            <RichTextBox.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </RichTextBox.Resources>
+        </RichTextBox>
+
+    </Grid>
+</Window>
